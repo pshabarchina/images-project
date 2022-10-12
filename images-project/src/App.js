@@ -1,6 +1,7 @@
 import './App.css';
 import { Link, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Main from './routes/main';
 
 function App() {
   const [data, setData] = useState([]);
@@ -33,17 +34,16 @@ function App() {
     getData();
   }, []);
 
-  const images = data.map(entry => (<p class='imgSpan'><img src={entry.url} key={entry.id} height='200' /><button class='likeBtn'>Like</button><span>      </span></p>));
-  
-  return (
+  const images = data.map(entry => (<p className='imgSpan' id={entry.url}><img src={entry.url} key={entry.id} height='200' /><button className='likeBtn'>Like</button><span>      </span></p>));
+    return (
     <div className="App">
       <ul>
-        <li><Link to="/main">Main</Link></li>
+        <li><Link to="/main" state={data}>Main</Link></li>
         <li><Link to="/liked-images">Liked Images</Link></li>
       </ul>
       <Outlet />
       <span>
-        {images}
+        
       </span>
     </div>
   );
