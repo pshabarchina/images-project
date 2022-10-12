@@ -6,14 +6,12 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  let imagesArray = [];
-
 
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await fetch(
-          'https://api.thecatapi.com/v1/images/search'
+          'https://api.thecatapi.com/v1/images/search?limit=10'
         );
 
         if (!response.ok) {
@@ -33,15 +31,10 @@ function App() {
       }
     }
     getData();
-    // for (let i=0; i<5; i++) {
-    //   getData();
-    //   imagesArray.push(data);
-    // };
   }, []);
 
-  const images = data.map(entry => (<p><img src={entry.url} key={entry.id} height='300' /></p>));
-  console.log(images);
-
+  const images = data.map(entry => (<p class='imgSpan'><img src={entry.url} key={entry.id} height='200' /><button class='likeBtn'>Like</button><span>      </span></p>));
+  
   return (
     <div className="App">
       <ul>
