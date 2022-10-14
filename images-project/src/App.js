@@ -34,16 +34,25 @@ function App() {
     getData();
   }, []);
 
-  const images = data.map(entry => (<p className='imgSpan' id={entry.url}><img src={entry.url} key={entry.id} height='200' /><button className='likeBtn'>Like</button><span>      </span></p>));
+  let likedImgs = [];
+  function saveLikedImg(e) {
+    let spanEl = e.target.closest('.imgSpan');
+    if (!likedImgs.includes(spanEl.id)) 
+      likedImgs.push(spanEl.id);
+    console.log(likedImgs);
+    return likedImgs;
+  }
+
+  const images = data.map(entry => (<p className='imgSpan' id={entry.url}><img src={entry.url} key={entry.id} height='200' /><button className='likeBtn' onClick={saveLikedImg}>Like</button><span>      </span></p>));
     return (
     <div className="App">
       <ul>
         <li><Link to="/main" state={data}>Main</Link></li>
-        <li><Link to="/liked-images">Liked Images</Link></li>
+        <li><Link to="/liked-images" state={likedImgs}>Liked Images</Link></li>
       </ul>
       <Outlet />
       <span>
-        
+        {images}
       </span>
     </div>
   );
