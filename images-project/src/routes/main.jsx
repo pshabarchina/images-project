@@ -10,7 +10,6 @@ export default function Main(props) {
     if (!props.likedImgs.includes(spanEl.id)) 
       props.addLikedImage(spanEl.id);
     console.log(props.likedImgs);
-    return props.likedImgs;
   }
 
   const images = props.data.map(entry => (<p className='imgSpan' id={entry.url}><img src={entry.url} height='200' /><button className='likeBtn' onClick={handleLikeClick}>Like</button></p>));
