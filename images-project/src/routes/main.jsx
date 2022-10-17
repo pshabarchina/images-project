@@ -2,21 +2,18 @@ import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 
 export default function Main(props) {
-  const location = useLocation();
-  // useEffect(() => {
-  //   console.log(location);
-  // }, [])
   
   console.log(props);
-  function saveLikedImg(e) {
+  function handleLikeClick(e) {
     let spanEl = e.target.closest('.imgSpan');
+    e.target.style.backgroundColor = "gray";
     if (!props.likedImgs.includes(spanEl.id)) 
       props.addLikedImage(spanEl.id);
     console.log(props.likedImgs);
     return props.likedImgs;
   }
 
-  const images = location.state.map(entry => (<p className='imgSpan' id={entry.url}><img src={entry.url} height='200' /><button className='likeBtn' onClick={saveLikedImg}>Like</button></p>));
+  const images = props.data.map(entry => (<p className='imgSpan' id={entry.url}><img src={entry.url} height='200' /><button className='likeBtn' onClick={handleLikeClick}>Like</button></p>));
     
   return (
     <main>

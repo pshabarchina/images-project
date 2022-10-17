@@ -1,9 +1,6 @@
-import { useLocation } from 'react-router-dom';
-
-export default function LikedImages() {
-  let location = useLocation();
+export default function LikedImages(props) {
  
-  const images = location.state.map(entry => (<p><img src={entry} height='200'/></p>));
+  const images = props.likedImgs.map(entry => (<p><img src={entry} height='200'/></p>));
 
   return (
     <main>

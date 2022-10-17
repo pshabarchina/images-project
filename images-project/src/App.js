@@ -36,21 +36,20 @@ function App() {
     getData();
   }, []);
 
-    function addLikedImage(url) {
-      setLikedImages([...likedImgs, url]);
-    }
+  function addLikedImage(url) {
+    setLikedImages([...likedImgs, url]);
+  }
 
-    return (
+  return (
     <div className="App">
       <ul>
-        <li><Link to="/main" state={data}>Main</Link></li>
-        <li><Link to="/liked-images" state={likedImgs}>Liked Images</Link></li>
+        <li><Link to="/">Main</Link></li>
+        <li><Link to="/liked-images">Liked Images</Link></li>
       </ul>
       <Routes>
-      <Route path="/main" element={<Main addLikedImage={addLikedImage} likedImgs={likedImgs} />} />
-      <Route path="liked-images" element={<LikedImages />}/>
+      <Route path="/" element={<Main addLikedImage={addLikedImage} likedImgs={likedImgs} data={data}/>} />
+      <Route path="liked-images" element={<LikedImages likedImgs={likedImgs}/>}/>
     </Routes>
-    
     </div>
   );
 }
