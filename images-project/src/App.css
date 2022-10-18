@@ -29,6 +29,13 @@
 }
 
 .likeBtn {
+  background-color: rgb(171, 170, 170);
+  border-radius: 7px;
+  border: none;
+  position: absolute;
+}
+
+.likeBtn-clicked {
   background-color: darksalmon;
   border-radius: 7px;
   border: none;
