@@ -29,10 +29,18 @@
 }
 
 .likeBtn {
-  background-color: rgb(171, 170, 170);
+  background-color: white;
   border-radius: 7px;
-  border: none;
+  border: 1px solid gray;
   position: absolute;
+}
+
+.dislikeBtn {
+  background-color: white;
+  border-radius: 7px;
+  border: 1px solid gray;
+  position: absolute;
+  top: 22px;
 }
 
 .likeBtn-clicked {

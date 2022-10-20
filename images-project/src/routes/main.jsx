@@ -6,15 +6,19 @@ export default function Main(props) {
     let spanEl = e.target.closest('.imgSpan');
     if (!props.likedImgs.includes(spanEl.id)) 
       props.addLikedImage(spanEl.id);
-    else {
+  }
+
+  function handleDislikeLikeClick(e){
+    let spanEl = e.target.closest('.imgSpan');
+    if (props.likedImgs.includes(spanEl.id)) 
       props.removeLikedImage(spanEl.id);
-    }
   }
 
   const images = props.data.map(entry => 
     (<p className='imgSpan' id={entry.url}>
       <img src={entry.url} height='200' />
         <button className={props.likedImgs.includes(entry.url)?"likeBtn likeBtn-clicked":"likeBtn"} onClick={handleLikeClick}>Like</button>
+        <button className="dislikeBtn" onClick={handleDislikeLikeClick}>Dislike</button>
     </p>));
 
   return (
