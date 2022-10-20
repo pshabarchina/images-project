@@ -8,10 +8,13 @@ export default function Main(props) {
       props.addLikedImage(spanEl.id);
   }
 
-  function handleDislikeLikeClick(e){
+  function handleDislikeLikeClick(e) {
     let spanEl = e.target.closest('.imgSpan');
+    
     if (props.likedImgs.includes(spanEl.id)) 
-      props.removeLikedImage(spanEl.id);
+      props.removeFromLikedImages(spanEl.id);
+
+    props.removeDislikedImage(spanEl.id);
   }
 
   const images = props.data.map(entry => 

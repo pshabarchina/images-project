@@ -40,9 +40,14 @@ function App() {
     setLikedImages([...likedImgs, url]);
   }
 
-  function removeLikedImage(url) {
-    const updatedLikedImgs = likedImgs.filter(img => img!== url);
+  function removeFromLikedImages(url) {
+    const updatedLikedImgs = likedImgs.filter(img => img !== url);
     setLikedImages(updatedLikedImgs);
+  }
+
+  function removeDislikedImage(url) {
+    const updatedData = data.filter(entry => entry.url !== url);
+    setData(updatedData);
   }
 
   return (
@@ -52,7 +57,7 @@ function App() {
         <li><Link to="/liked-images">Liked Images</Link></li>
       </ul>
       <Routes>
-      <Route path="/" element={<Main addLikedImage={addLikedImage} removeLikedImage={removeLikedImage} likedImgs={likedImgs} data={data}/>} />
+      <Route path="/" element={<Main addLikedImage={addLikedImage} removeDislikedImage={removeDislikedImage} removeFromLikedImages={removeFromLikedImages} likedImgs={likedImgs} data={data}/>} />
       <Route path="liked-images" element={<LikedImages likedImgs={likedImgs}/>}/>
     </Routes>
     </div>
