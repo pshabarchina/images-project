@@ -37,9 +37,6 @@
 
 .likeBtn-clicked {
   background-color: darksalmon;
-  border-radius: 7px;
-  border: none;
-  position: absolute;
 }
 
 .imgSpan {
