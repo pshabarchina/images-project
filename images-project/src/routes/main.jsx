@@ -15,11 +15,12 @@ export default function Main(props) {
       props.removeFromLikedImages(spanEl.id);
 
     props.removeDislikedImage(spanEl.id);
+    props.setImageWasDeleted(true);
   }
 
   const images = props.data.map(entry => 
     (<p className='imgSpan' id={entry.url}>
-      <img src={entry.url} height='200' />
+      <img src={entry.url} height='350' />
         <button className={props.likedImgs.includes(entry.url)?"likeBtn likeBtn-clicked":"likeBtn"} onClick={handleLikeClick}>Like</button>
         <button className="dislikeBtn" onClick={handleDislikeLikeClick}>Dislike</button>
     </p>));

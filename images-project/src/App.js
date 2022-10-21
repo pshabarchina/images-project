@@ -9,6 +9,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [likedImgs, setLikedImages] = useState([]);
+  const [imageWasDeleted, setImageWasDeleted] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
@@ -36,6 +37,34 @@ function App() {
     getData();
   }, []);
 
+  useEffect(() => {
+       const getOneImage = async () => {
+        try {
+          const response = await fetch(
+            'https://api.thecatapi.com/v1/images/search?limit=1'
+          );
+  
+          if (!response.ok) {
+            throw new Error(`This is an HTTP error: The status is ${response.status}`);
+          }
+  
+          let actualData = await response.json();
+          const newData =  data.concat(actualData);
+          setData(newData);
+          setError(null);
+        }
+        catch (err) {
+          setError(err.message);
+          setData(null);
+        }
+        finally {
+          setLoading(false);
+        }
+      }
+      getOneImage();
+      setImageWasDeleted(false);
+    }, [imageWasDeleted]);
+
   function addLikedImage(url) {
     setLikedImages([...likedImgs, url]);
   }
@@ -57,7 +86,7 @@ function App() {
         <li><Link to="/liked-images">Liked Images</Link></li>
       </ul>
       <Routes>
-      <Route path="/" element={<Main addLikedImage={addLikedImage} removeDislikedImage={removeDislikedImage} removeFromLikedImages={removeFromLikedImages} likedImgs={likedImgs} data={data}/>} />
+      <Route path="/" element={<Main addLikedImage={addLikedImage} removeDislikedImage={removeDislikedImage} removeFromLikedImages={removeFromLikedImages} likedImgs={likedImgs} data={data} setImageWasDeleted={setImageWasDeleted}/>} />
       <Route path="liked-images" element={<LikedImages likedImgs={likedImgs}/>}/>
     </Routes>
     </div>
