@@ -49,8 +49,8 @@ function App() {
           }
   
           let actualData = await response.json();
-          const newData =  data.concat(actualData);
-          setData(newData);
+          const updatedData =  data.concat(actualData);
+          setData(updatedData);
           setError(null);
         }
         catch (err) {
