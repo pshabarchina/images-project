@@ -1,5 +1,5 @@
 import './App.css';
-import { Link, Outlet, Routes, Route } from 'react-router-dom';
+import { Link, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Main from './routes/main';
 import LikedImages from './routes/liked-images';
