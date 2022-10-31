@@ -8,7 +8,7 @@ function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [likedImgs, setLikedImages] = useState([]);
+  //const [likedImgs, setLikedImages] = useState([]);
   const [imageWasDeleted, setImageWasDeleted] = useState(false);
 
   useEffect(() => {
@@ -65,15 +65,6 @@ function App() {
       setImageWasDeleted(false);
     }, [imageWasDeleted]);
 
-  function addLikedImage(url) {
-    setLikedImages([...likedImgs, url]);
-  }
-
-  function removeFromLikedImages(url) {
-    const updatedLikedImgs = likedImgs.filter(img => img !== url);
-    setLikedImages(updatedLikedImgs);
-  }
-
   function removeDislikedImage(url) {
     const updatedData = data.filter(entry => entry.url !== url);
     setData(updatedData);
@@ -86,8 +77,8 @@ function App() {
         <li><Link to="/liked-images">Liked Images</Link></li>
       </ul>
       <Routes>
-      <Route path="/" element={<Main addLikedImage={addLikedImage} removeDislikedImage={removeDislikedImage} removeFromLikedImages={removeFromLikedImages} likedImgs={likedImgs} data={data} setImageWasDeleted={setImageWasDeleted}/>} />
-      <Route path="liked-images" element={<LikedImages likedImgs={likedImgs}/>}/>
+      <Route path="/" element={<Main removeDislikedImage={removeDislikedImage} data={data} setImageWasDeleted={setImageWasDeleted}/>} />
+      <Route path="liked-images" element={<LikedImages />}/>
     </Routes>
     </div>
   );
