@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { imageAdded } from '../imagesSlice';
+import { imageAdded, imageRemoved } from '../imagesSlice';
 
 export default function Main(props) {
 
@@ -17,8 +17,8 @@ export default function Main(props) {
   function handleDislikeLikeClick(e) {
     let spanEl = e.target.closest('.imgSpan');
     
-    if (props.likedImgs.includes(spanEl.id)) 
-      props.removeFromLikedImages(spanEl.id);
+    if(likedImages.includes(spanEl.id))
+      dispatch(imageRemoved(spanEl.id))
 
     props.removeDislikedImage(spanEl.id);
     props.setImageWasDeleted(true);

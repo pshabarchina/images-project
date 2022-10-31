@@ -8,11 +8,14 @@ const imagesSlice = createSlice({
     reducers: {
         imageAdded(state, action) {
             state.push(action.payload)
+        },
+        imageRemoved(state, action) {
+            return state.filter(img => img !== action.payload);
         }
     }
 })
 
-export const { imageAdded } = imagesSlice.actions;
+export const { imageAdded, imageRemoved } = imagesSlice.actions;
 
 export default imagesSlice.reducer;
 
