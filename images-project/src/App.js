@@ -3,13 +3,16 @@ import { Link, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Main from './routes/main';
 import LikedImages from './routes/liked-images';
+import { dataLoaded } from './dataSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  //const [likedImgs, setLikedImages] = useState([]);
   const [imageWasDeleted, setImageWasDeleted] = useState(false);
+  
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getData = async () => {
@@ -23,12 +26,14 @@ function App() {
         }
 
         let actualData = await response.json();
-        setData(actualData);
+        //setData(actualData);
+        dispatch(dataLoaded(actualData));
         setError(null);
       }
       catch (err) {
         setError(err.message);
-        setData(null);
+        //setData(null);
+        dispatch(dataLoaded(null));
       }
       finally {
         setLoading(false);
