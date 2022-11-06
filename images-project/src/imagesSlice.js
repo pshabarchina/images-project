@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = [];
 
 const imagesSlice = createSlice({
-    name: 'images',
+    name: 'likedImages',
     initialState,
     reducers: {
         imageAdded(state, action) {

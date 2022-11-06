@@ -3,7 +3,7 @@ import { Link, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Main from './routes/main';
 import LikedImages from './routes/liked-images';
-import { dataLoaded } from './dataSlice';
+import { fetchData, selectAllImages } from './dataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
@@ -13,34 +13,37 @@ function App() {
   const [imageWasDeleted, setImageWasDeleted] = useState(false);
   
   const dispatch = useDispatch();
+  const dataStatus = useSelector(state => state.data.status);
+  console.log(dataStatus);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await fetch(
-          'https://api.thecatapi.com/v1/images/search?limit=10'
-        );
+    // const getData = async () => {
+    //   try {
+    //     const response = await fetch(
+    //       'https://api.thecatapi.com/v1/images/search?limit=10'
+    //     );
 
-        if (!response.ok) {
-          throw new Error(`This is an HTTP error: The status is ${response.status}`);
-        }
+    //     if (!response.ok) {
+    //       throw new Error(`This is an HTTP error: The status is ${response.status}`);
+    //     }
 
-        let actualData = await response.json();
-        //setData(actualData);
-        dispatch(dataLoaded(actualData));
-        setError(null);
-      }
-      catch (err) {
-        setError(err.message);
-        //setData(null);
-        dispatch(dataLoaded(null));
-      }
-      finally {
-        setLoading(false);
-      }
+    //     let actualData = await response.json();
+    //     setData(actualData);
+    //     setError(null);
+    //   }
+    //   catch (err) {
+    //     setError(err.message);
+    //     setData(null);
+    //   }
+    //   finally {
+    //     setLoading(false);
+    //   }
+    // }
+    // getData();
+    if (dataStatus === 'idle') {
+      dispatch( fetchData() )
     }
-    getData();
-  }, []);
+  }, [dataStatus, dispatch]);
 
   useEffect(() => {
        const getOneImage = async () => {
