@@ -3,7 +3,7 @@ import { Link, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Main from './routes/main';
 import LikedImages from './routes/liked-images';
-import { fetchData, selectAllImages } from './dataSlice';
+import { fetchData, selectAllImages, fetchOneImage } from './dataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
@@ -17,61 +17,17 @@ function App() {
   console.log(dataStatus);
 
   useEffect(() => {
-    // const getData = async () => {
-    //   try {
-    //     const response = await fetch(
-    //       'https://api.thecatapi.com/v1/images/search?limit=10'
-    //     );
-
-    //     if (!response.ok) {
-    //       throw new Error(`This is an HTTP error: The status is ${response.status}`);
-    //     }
-
-    //     let actualData = await response.json();
-    //     setData(actualData);
-    //     setError(null);
-    //   }
-    //   catch (err) {
-    //     setError(err.message);
-    //     setData(null);
-    //   }
-    //   finally {
-    //     setLoading(false);
-    //   }
-    // }
-    // getData();
     if (dataStatus === 'idle') {
-      dispatch( fetchData() )
+      dispatch( fetchData() );
     }
   }, [dataStatus, dispatch]);
 
   useEffect(() => {
-       const getOneImage = async () => {
-        try {
-          const response = await fetch(
-            'https://api.thecatapi.com/v1/images/search?limit=1'
-          );
-  
-          if (!response.ok) {
-            throw new Error(`This is an HTTP error: The status is ${response.status}`);
-          }
-  
-          let actualData = await response.json();
-          const updatedData =  data.concat(actualData);
-          setData(updatedData);
-          setError(null);
-        }
-        catch (err) {
-          setError(err.message);
-          setData(null);
-        }
-        finally {
-          setLoading(false);
-        }
-      }
-      getOneImage();
-      setImageWasDeleted(false);
-    }, [imageWasDeleted]);
+    if (imageWasDeleted) {
+      dispatch( fetchOneImage() );
+    }
+    setImageWasDeleted(false);
+    }, [imageWasDeleted, dispatch]);
 
   function removeDislikedImage(url) {
     const updatedData = data.filter(entry => entry.url !== url);
@@ -85,7 +41,7 @@ function App() {
         <li><Link to="/liked-images">Liked Images</Link></li>
       </ul>
       <Routes>
-      <Route path="/" element={<Main removeDislikedImage={removeDislikedImage} data={data} setImageWasDeleted={setImageWasDeleted}/>} />
+      <Route path="/" element={<Main setImageWasDeleted={setImageWasDeleted}/>} />
       <Route path="liked-images" element={<LikedImages />}/>
     </Routes>
     </div>

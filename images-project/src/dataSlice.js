@@ -13,6 +13,9 @@ const dataSlice = createSlice({
         dataLoaded(state, action) {
             state.images.push(action.payload)
         },
+        dataRemoved(state, action) {
+            return state.images.filter(entry => entry.url !== action.payload)
+        }
     },
     extraReducers(builder) {
         builder
@@ -23,10 +26,17 @@ const dataSlice = createSlice({
                 state.status = 'succeeded';
                 state.images = state.images.concat(action.payload);
             })
+            .addCase(fetchOneImage.pending, (state, action) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchOneImage.fulfilled, (state, action) => {
+                state.status = 'succeeded';
+                state.images = state.images.concat(action.payload);
+            })
     }
 });
 
-export const { dataLoaded } = dataSlice.actions;
+export const { dataLoaded, dataRemoved } = dataSlice.actions;
 
 export default dataSlice.reducer;
 
@@ -38,5 +48,13 @@ export const fetchData = createAsyncThunk('data/fetchData', async () => {
       );
     const actualData = await response.json();
     console.log(actualData);
+    return actualData;
+});
+
+export const fetchOneImage = createAsyncThunk('data/fetchOneImage', async () => {
+    const response = await fetch(
+        'https://api.thecatapi.com/v1/images/search?limit=1'
+    );
+    const actualData = await response.json();
     return actualData;
 });

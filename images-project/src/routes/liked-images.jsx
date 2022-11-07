@@ -1,8 +1,9 @@
 import { useSelector } from 'react-redux';
+import { nanoid } from '@reduxjs/toolkit';
 
 export default function LikedImages(props) {
   const likedImages = useSelector(state => state.likedImages);
-  const images = likedImages.map(entry => (<span><img src={entry} height='350'/><span>  </span></span>));
+  const images = likedImages.map(entry => (<span key={nanoid()}><img src={entry} height='350'/><span>  </span></span>));
 
   return (
     <main>
