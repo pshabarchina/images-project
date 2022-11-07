@@ -3,18 +3,15 @@ import { Link, Routes, Route } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import Main from './routes/main';
 import LikedImages from './routes/liked-images';
-import { fetchData, selectAllImages, fetchOneImage } from './dataSlice';
+import { fetchData, fetchOneImage } from './dataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [imageWasDeleted, setImageWasDeleted] = useState(false);
   
   const dispatch = useDispatch();
   const dataStatus = useSelector(state => state.data.status);
-  console.log(dataStatus);
 
   useEffect(() => {
     if (dataStatus === 'idle') {
@@ -28,11 +25,6 @@ function App() {
     }
     setImageWasDeleted(false);
     }, [imageWasDeleted, dispatch]);
-
-  function removeDislikedImage(url) {
-    const updatedData = data.filter(entry => entry.url !== url);
-    setData(updatedData);
-  }
 
   return (
     <div className="App">

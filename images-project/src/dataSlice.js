@@ -14,7 +14,7 @@ const dataSlice = createSlice({
             state.images.push(action.payload)
         },
         dataRemoved(state, action) {
-            return state.images.filter(entry => entry.url !== action.payload)
+            return {...state, images: state.images.filter(entry => entry.url !== action.payload)}
         }
     },
     extraReducers(builder) {
