@@ -7,7 +7,6 @@ import { fetchData, fetchOneImage } from './dataSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
-  const [data, setData] = useState([]);
   const [imageWasDeleted, setImageWasDeleted] = useState(false);
   
   const dispatch = useDispatch();

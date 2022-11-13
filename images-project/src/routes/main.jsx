@@ -25,7 +25,6 @@ export default function Main(props) {
       dispatch(imageRemoved(spanEl.id))
     }
 
-    //props.removeDislikedImage(spanEl.id);
     dispatch(dataRemoved(spanEl.id));
     props.setImageWasDeleted(true);
   }
